@@ -1,0 +1,90 @@
+{
+  "_comment": "交通网络鲁棒性实验完整配置模板；修改对应值即可复现实验。",
+
+  "_comment_dataset_name": "城市或数据集名称，用于输出目录和日志标识。",
+  "dataset_name": "Chengdu",
+
+  "_comment_graph_path": "输入边表 CSV 的路径，通常位于 data/ 目录。",
+  "graph_path": "data/Chengdu_Edgelist.csv",
+
+  "_comment_scheme": "攻击策略：adaptive_mw（乘法权重）或 weight_pool_ls（权重池+局部搜索）。",
+  "scheme": "weight_pool_ls",
+
+  "_comment_attack_mode": "single 表示单点删除；radius 表示按米级半径扩散删除。",
+  "attack_mode": "radius",
+
+  "_comment_stop_ratio": "当最大连通分量占比低于该阈值即停止；题面默认 0.01。",
+  "stop_ratio": 0.01,
+
+  "_comment_objective": "代理目标：R1=仅看 LCC 比例，R2=加权碎裂度（需搭配 alpha）。",
+  "objective": "R2",
+
+  "_comment_alpha": "R2 目标中 LCC 与碎裂度的权衡系数（仅 objective=R2 时生效）。",
+  "alpha": 0.7,
+
+  "_comment_features": "基础特征集合；可删减或扩充，顺序无影响。",
+  "features": ["degree", "betweenness", "kcore", "split"],
+
+  "_comment_betweenness_mode": "介数中心性求解方式：exact 或 approx。",
+  "betweenness_mode": "approx",
+
+  "_comment_k_btwn_samples": "approx 模式下的随机源点数量，值越大越精确但越慢。",
+  "k_btwn_samples": 32,
+
+  "_comment_btwn_resample_each_step": "是否每一步重新采样介数源点（True 更随机，False 可复现）。",
+  "btwn_resample_each_step": true,
+
+  "_comment_btwn_refresh_interval": "隔多少步重新计算一次介数；1 表示每步都算。",
+  "btwn_refresh_interval": 1,
+
+  "_comment_eta": "乘法权重学习率，越大权重波动越剧烈。",
+  "eta": 8.0,
+
+  "_comment_use_smooth": "是否对权重更新做平滑；建议 True。",
+  "use_smooth": true,
+
+  "_comment_lambda_smooth": "平滑参数 λ，0~1；越接近 1 越依赖最新收益。",
+  "lambda_smooth": 0.3,
+
+  "_comment_lookahead_h": "短窗口前瞻步数；1=不前瞻，>1 会进行 rollout。",
+  "lookahead_h": 3,
+
+  "_comment_epsilon": "特征标准化时的防零除项。",
+  "epsilon": 1e-12,
+
+  "_comment_single_priority": "权重池方案中单特征主权重 β1（scheme=weight_pool_ls 时使用）。",
+  "single_priority": 0.55,
+
+  "_comment_dual_priority": "权重池方案中双特征主权重 β2。",
+  "dual_priority": 0.35,
+
+  "_comment_enable_local_neighbors": "权重池方案是否启用局部邻域搜索。",
+  "enable_local_neighbors": true,
+
+  "_comment_local_delta": "局部搜索步长 δ，控制权重扰动幅度。",
+  "local_delta": 0.05,
+
+  "_comment_radius_m": "空间半径（米）；attack_mode=radius 且 >0 时才生效。",
+  "radius_m": 100.0,
+
+  "_comment_coord_mode": "坐标类型：xy=平面坐标，lonlat=经纬度（内部自动投影）。",
+  "coord_mode": "xy",
+
+  "_comment_spatial_index": "空间查询结构：bruteforce 或 kdtree；半径模式建议 kdtree。",
+  "spatial_index": "kdtree",
+
+  "_comment_rebuild_spatial_index": "kdtree 是否每步重建（True 更准但慢，False 只建一次）。",
+  "rebuild_spatial_index": false,
+
+  "_comment_seed": "随机种子，控制介数采样和权重初始化，可固定以复现实验。",
+  "seed": 2026,
+
+  "_comment_max_steps": "最多执行步数；None 表示不设上限（直到触发 stop_ratio）。",
+  "max_steps": null,
+
+  "_comment_verbose": "是否打印运行过程信息至终端。",
+  "verbose": true,
+
+  "_comment_output_dir": "输出根目录；程序会创建 output_dir/dataset_name/ 存放结果。",
+  "output_dir": "outputs"
+}

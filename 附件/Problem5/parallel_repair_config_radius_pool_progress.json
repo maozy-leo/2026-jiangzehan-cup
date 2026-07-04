@@ -1,0 +1,55 @@
+{
+  "max_workers": 32,
+  "raw_data_dir": "../Problem1",
+  "raw_data_pattern": "*_Edgelist.csv",
+  "radius_pool": [
+    0,
+    100,
+    300,
+    500
+  ],
+  "sequence_root_dir": "batch_outputs/attack_sequences",
+  "figure_root_dir": "batch_outputs/performance_curves",
+  "plot_module_file": "../Problem3:4/3:4visualize/plot_performance_curves.py",
+  "attack_utils_module_file": "../Problem3:4/3:4visualize/attack_utils.py",
+  "interfaces": [
+    {
+      "name": "betweenness_dropthreshold",
+      "enabled": true,
+      "module_file": "betweenness_repair_interface.py",
+      "function_name": "run_betweenness_repair_interface",
+      "params": {
+        "sample_k": 20,
+        "jump_step": 10,
+        "end_y_threshold": 0.01,
+        "radius": 0,
+        "add_edge_count_per_round": 5,
+        "normalized": false,
+        "random_seed": 42,
+        "verbose": false,
+        "window_drop_slope": 0.01
+      }
+    },
+    {
+      "name": "betweenness_profit",
+      "enabled": true,
+      "module_file": "betweenness_profit_interface.py",
+      "function_name": "run_betweenness_profit_interface",
+      "params": {
+        "sample_k": 20,
+        "jump_step": 10,
+        "ratio_gain_threshold": 1.0,
+        "end_y_threshold": 0.01,
+        "radius": 0,
+        "add_edge_count_per_round": 5,
+        "window_ratio": 0.001,
+        "normalized": false,
+        "random_seed": 42,
+        "max_repair_rounds_per_window": 20,
+        "verbose": false
+      }
+    }
+  ],
+  "window_drop_slope_pool": [9.09,6.76,4.098,3.521]
+  
+}

@@ -1,0 +1,10 @@
+contextily
+geopandas
+matplotlib
+networkx
+numpy
+pyproj
+scipy
+seaborn
+shapely
+
